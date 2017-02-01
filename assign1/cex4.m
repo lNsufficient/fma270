@@ -33,3 +33,12 @@ quiver3(t2(1), t2(2), t2(3), prin2(1), prin2(2), prin2(3), s, 'r');
 plot3(t2(1), t2(2), t2(3), '.')
 plot3(t2(1), t2(2), t2(3), 'ro')
 
+
+P1u = pflat(P1*U);
+P2u = pflat(P2*U);
+
+figure(4);
+plot(P1u(1,:), P1u(2,:), '.')
+
+figure(5);
+plot(P2u(1,:), P2u(2,:), '.')
