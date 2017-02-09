@@ -10,10 +10,12 @@ load 'compEx1data.mat';
 X_h = pflat(X);
 
 figure(1)
-plot3(X(1,:), X(2,:), X(3,:), '.g')
+plot3(X(1,:), X(2,:), X(3,:), '.b')
 hold on; 
 plotcams(P)
 axis equal;
+str = sprintf('3D plot without transformation');
+title(str)
 
 %% Image and projected points
 i = 2;
@@ -28,9 +30,11 @@ Ii = imread(imfiles{i});
 figure(2)
 imagesc(Ii);
 hold on;
-plot(xi_h(1,:), xi_h(2,:), '.b');
-
+plot(xi_h(1,:), xi_h(2,:), '.b', 'Markersize', 12);
 plot(xpi_h(1,:), xpi_h(2,:), '.r');
+axis equal
+str = sprintf('Projected points, camera %d', i);
+title(str);
 
 %% Using projective transformations
 
@@ -66,6 +70,9 @@ for j = 1:N
     plot3(Xj(1,:), Xj(2,:), Xj(3,:), '.b')
     hold on;
     plotcams(P_new{j});
+    axis equal;
+    str = sprintf('Transformation %d', j);
+    title(str);
 end
 
 % J = 2 correspond to the best points.
@@ -87,4 +94,6 @@ imagesc(Ii);
 hold on;
 plot(xji(1,:), xji(2,:), '.b');
 plot(xji_p(1,:), xji_p(2,:), '.r');
+str = sprintf('Camera %d, Transformation %d',i,j);
+title(str);
 axis equal;
