@@ -75,5 +75,6 @@ figure(3)
 quiver3(a(1),a(2),a(3),v(1),v(2),v(3),1500,'r')
 end
 
+save('camMatrices', 'P')
 [f, xp, gamma, skew] = getCamParams(P{i})
 

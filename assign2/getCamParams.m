@@ -1,4 +1,4 @@
-function [f, xp, gamma, skew] = getCamParams(P)
+function [f, xp, gamma, skew, k] = getCamParams(P)
 %GETCAM returns f, xp, gamma, skew
 A = P(:,1:3);
 k = rq(A);
