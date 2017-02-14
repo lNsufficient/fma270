@@ -24,7 +24,21 @@ l = F*x1;
 l = l./sqrt(repmat(l(1,:).^2 + l(2 ,:).^2 ,[3 1]));
 % Makes sure that the line has a unit normal
 %( makes the distance formula easier )
-figure(2);
+I = imread('kronan2.JPG');
+figure(2)
+imagesc(I)
+hold on;
+
+m = randperm(size(l,2));
+m = m(1:20);
+l_test = l(:,m)
+
+x2_plot = pflat(x2);
+plot(x2_plot(1,m), x2_plot(2,m), '*r')
+rital(l_test)
+
+
+figure(3);
 hist(abs(sum(l.*x2)),100);
 % Computes all the the distances between the points
 % and there corresponding lines , and plots in a histogram
