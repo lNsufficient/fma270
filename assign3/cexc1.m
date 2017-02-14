@@ -43,5 +43,6 @@ hist(abs(sum(l.*x2)),100);
 % Computes all the the distances between the points
 % and there corresponding lines , and plots in a histogram
 
+save('exc1Data', 'F', 'F_tilde', 'N1', 'N2', 'x1', 'x2');
 
 end

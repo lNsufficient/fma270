@@ -1,11 +1,8 @@
 function X = getX(P1, P2, x1, x2)
-%GETXI Summary of this function goes here
-%   Detailed explanation goes here
+%GETXI Calculates the X coordinates given P1, P2, x1, x2 (matching points)
+
 N = length(x1);
 X = zeros(4, length(x1));
-
-x1 = pflat(x1);
-x2 = pflat(x2);
 
 for i = 1:N
     MXi = getMX(P1, P2, x1(:,i), x2(:,i));
