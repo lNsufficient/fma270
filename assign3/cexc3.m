@@ -66,7 +66,9 @@ hist(abs(sum(l.*x2)),100);
 
 format shorteng
 disp(E./E(3,3))
+%% Export to computer excercise 4
 
+save('cexc3Data', 'E_tilde', 'K', 'x1', 'x2');
 
 
 end
