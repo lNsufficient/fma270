@@ -34,6 +34,7 @@ x2_tilde = K\x2;
 [E, E_tilde] = getE(x1, x2, K);
 figure(1)
 plot(diag(x2_tilde'*E_tilde*x1_tilde));
+title('matchningar i Essential matrix')
 
 %E = K'\E/K;
 %=====END======
@@ -41,6 +42,7 @@ plot(diag(x2_tilde'*E_tilde*x1_tilde));
 figure(2)
 clf
 plot(diag(x2'*E*x1));
+title('matchningar i Fundamental matrix')
 
 %% Rita linjer
 l = E*x1;
@@ -51,6 +53,7 @@ I = imread('kronan2.JPG');
 figure(3)
 imagesc(I)
 hold on;
+title('kronan2')
 
 m = randperm(size(l,2));
 m = m(1:20);
@@ -63,6 +66,7 @@ rital(l_test)
 
 figure(4);
 hist(abs(sum(l.*x2)),100);
+title('histogram för Fundamental som hittats med Essential')
 
 format shorteng
 disp(E./E(3,3))

@@ -23,7 +23,10 @@ imagesc(I1);
 hold on
 x1p = P1*X;
 x1p = pflat(x1p);
+plot(x1(1,:), x1(2,:), 'b.', 'MarkerSize', 12);
 plot(x1p(1,:), x1p(2,:), 'r.')
+legend('givna', 'projicerade');
+title('kronan1')
 
 figure(2)
 clf;
@@ -31,9 +34,11 @@ I2 = imread('assignment3data\kronan2.JPG');
 imagesc(I2);
 hold on;
 x2p = P2*X;
-x2p = pflat(x2p)
+x2p = pflat(x2p);
+plot(x2(1,:), x2(2,:), 'b.', 'MarkerSize', 12);
 plot(x2p(1,:), x2p(2,:), 'r.')
-
+legend('givna', 'projicerade');
+title('kronan2')
 
 figure(3)
 clf;
