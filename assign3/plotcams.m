@@ -9,4 +9,7 @@ for i = 1:length(P);
 end
 c = c./repmat(c(4,:),[4 1]);
 fac = 1;
-quiver3(c(1,:),c(2,:),c(3,:),v(1,:), v(2,:), v(3,:),fac,['r','-'],'LineWidth',1.5,'MaxHeadSize',1.5);
+% quiver3(c(1,:),c(2,:),c(3,:),v(1,:), v(2,:), v(3,:),fac,['r', '-'],'LineWidth',1.5,'MaxHeadSize',1.5);
+
+quiver3(c(1,1),c(2,1),c(3,1),v(1,1), v(2,1), v(3,1),fac,['b','-'],'LineWidth',1.5,'MaxHeadSize',1.5);
+quiver3(c(1,2),c(2,2),c(3,2),v(1,2), v(2,2), v(3,2),fac,['r','-'],'LineWidth',1.5,'MaxHeadSize',1.5);
