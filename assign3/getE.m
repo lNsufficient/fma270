@@ -1,4 +1,4 @@
-function [E, E_tilde] = getE(x1, x2, K)
+function [E, E_tilde, U, V] = getE(x1, x2, K)
 %GETE Summary of this function goes here
 %   Detailed explanation goes here
 

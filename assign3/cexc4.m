@@ -38,6 +38,20 @@ for i = 1:4
     plot3(X(1,:), X(2,:), X(3,:), '.');
     hold on;
     plotcams(P);
+    
+    
+    px2 = P2{i}*X;
+    totPoints = length(px2);
+    gp2 = sum(px2(end,:) > 0)/totPoints;
+    
+    px1 = P1*X;
+    gp1 = sum(px1(end,:) > 0)/totPoints;
+    
+    if (gp2>0.5) && (gp1 > 0.5)
+        disp(sprintf('good points, kamera %d', i))
+    else
+        disp('bad points')
+    end
 end
 
 i =4;
