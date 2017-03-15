@@ -1,3 +1,4 @@
+clear;
 load 'mods/ex2data.mat'
 
 %% Calculates the homography
