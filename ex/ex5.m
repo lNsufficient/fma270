@@ -163,3 +163,15 @@ save('ex5_end_image', 'new2134')
 %Maybe find the homography from the complete image new2134 to a paper of
 %size a4. This gives the homography that then can be applied to all other
 %homographies so that they instead transfer to this a4 paper.
+%One way to do this would be to take a photo of any white paper, and then
+%try to match the corners of the paper. A lot easier would be to take an
+%image of the same page, and try to find the homography using simp, which
+%should be easy. Then that image can be "thrown away", so it is not used to
+%merge together pieces, only the homography will be used.
+
+%Another way to improve results would be to instead transfer to the image
+%showing only the top right corner of the paper. This perspective is nicer,
+%so if all images could be transferred here, the result might be better. In
+%order to do so, all that is needed is one good homography from one other
+%picture to this perspective (the only good homography that was found for
+%this was h32), and then create h34 = h32*h24, for example.
