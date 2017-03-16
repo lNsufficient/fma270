@@ -39,7 +39,8 @@ dev2 = diff2_sum/u2_sum
 %ransac but if diff2_max = 5.2420, when u2_max = 688.46, then it seems
 %okay.
 H = H_normalized
-H = H./H(3,3);
+%H = H_not_normalized
+%H = H./H(3,3);
 %% Get the camera's focal length
 % 
 % H2 = H.^2;
