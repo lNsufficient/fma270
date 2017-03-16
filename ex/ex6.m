@@ -24,13 +24,13 @@ if restart
 
     %% Vl_sift the images...
     edge_thresh = 10;
-    peak_thresh = 4;
+    peak_thresh = 1;
     [f1, d1] = vl_sift(single(rgb2gray(im1)), 'PeakThresh', peak_thresh); %Try adding pea
     %[f1, d1] = vl_sift(single(rgb2gray(im1)), 'edgethresh', edge_thresh); %Try adding pea
     [f2, d2] = vl_sift(single(rgb2gray(im2)), 'PeakThresh', peak_thresh);
     %[f2, d2] = vl_sift(single(rgb2gray(im2)), 'edgethresh', edge_thresh);
 
-    matches = vl_ubcmatch(d1, d2);
+    matches = vl_ubcmatch(d1, d2, 1.2);
 
     x1_2rows = f1(1:2, matches(1,:));
     x2_2rows = f2(1:2, matches(2,:));
@@ -149,7 +149,7 @@ N = matching_features;
 k = 4;
 for i = 1:nbrSets
     randind = randperm(N,k);
-    <
+    
     H = getH(x1(:,randind), x2(:,randind));
     
     Hx1 = pflat(H*x1);
