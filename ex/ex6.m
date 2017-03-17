@@ -29,8 +29,8 @@ if restart
     %[f1, d1] = vl_sift(single(rgb2gray(im1)), 'edgethresh', edge_thresh); %Try adding pea
     [f2, d2] = vl_sift(single(rgb2gray(im2)), 'PeakThresh', peak_thresh);
     %[f2, d2] = vl_sift(single(rgb2gray(im2)), 'edgethresh', edge_thresh);
-
-    matches = vl_ubcmatch(d1, d2, 1.2);
+%%
+    matches = vl_ubcmatch(d1, d2, 2);
 
     x1_2rows = f1(1:2, matches(1,:));
     x2_2rows = f2(1:2, matches(2,:));
@@ -54,6 +54,52 @@ if restart
     [x1(2,perm);  x2(2,perm)] ,'-', 'LineWidth', 3);
     hold  off;
 end
+%% Try to find fundamental matrix that fits to the points, using RANSAC
+nbrSets = round(log(0.01)/log(1-1/4^4));
+maxDist = 20;
+bestInliers = 0;
+N1 = getN(x1);
+N2 = getN(x2);
+N = matching_features;
+k = 4;
+for i = 1:nbrSets
+    randind = randperm(N,k);
+    
+    F = getF_normalized(x1(:,randind), x2(:,randind), getN(x1(:,randind)), getN(x2(:,randind)),0); 
+    F = getF_normalized(x1(:,randind), x2(:,randind), N1, N2,0);
+
+    xfx = diag(x2'*F*x1);
+    
+    inliers = (abs(xfx) < maxDist);
+    inliers = find(inliers);
+    
+    if numel(inliers) > numel(bestInliers)
+        bestInliers = inliers;
+        bestIndices = randind;
+    end
+end
+
+F_best = getF_normalized(x1(:,bestInliers), x2(:,bestInliers), N1, N2,0);
+xfx =diag(x2'*F_best*x1); 
+bestInliers = find(abs(xfx) < 0.5);
+figure(3)
+plot(xfx);
+figure(4)
+hist(xfx);
+
+nbrInliers = numel(bestInliers)
+disp('done')
+perm = randperm(nbrInliers, 20)
+bestInliers_all = bestInliers;
+bestInliers = bestInliers(perm);
+figure(11);
+clf;
+imagesc ([im1 im2]);
+hold on;
+plot([x1(1,bestInliers);  x2(1,bestInliers)+ size(im1 ,2)], ...
+[x1(2,bestInliers);  x2(2,bestInliers)] ,'-', 'LineWidth', 3);
+hold  off;
+
 %% Instead of homography, try to find cameras and 3d points, using RANSAC.
 nbrSets = round(log(0.01)/log(1-1/4^4));
 maxDist = 5;

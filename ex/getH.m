@@ -32,6 +32,11 @@ end
 
 [~, ~, V] = svd(M);
 v = V(:,end);
+%If ex2, ex4, ex5 is not working, remove the following line, was recently
+%added (and not tested). However, this line should be here, and it should
+%not cause any troubles.
+v = v/norm(v);
+
 H = zeros(3,3);
 H(1,:) = v(1:3);
 H(2,:) = v(4:6);

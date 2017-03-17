@@ -7,6 +7,7 @@ M = getMF(x1,x2);
 [~, ~, V] = svd(M);
 
 v = V(:,end);
+v = v/norm(v);
 
 Fn = reshape(v, [3 3]);
 
