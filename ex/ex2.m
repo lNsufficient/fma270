@@ -16,10 +16,13 @@ H = H_not_normalized;
 %To compare the two:
 H = H./H(3,3)
 diff1 = u2 - pflat(H*u1);
+diff1_perc = diff1./u2;
+diff1_perc_max = max(max(diff1_perc));
 diff1_sum = sum(sum(abs(diff1)));
 diff1_max = max(max(abs(diff1)))
 
 dev1 = diff1_sum/u2_sum
+
 
 %Calculate homography when USING normalization
 N1 = getN(u1); N2 = getN(u2);
@@ -27,11 +30,13 @@ H_normalized = getH(u1, u2, N1, N2)
 
 H = H_normalized
 H = H./H(3,3)
+
 diff2 = u2 - pflat(H*u1);
+diff2_perc = diff2(1:2,:)./u2(1:2,:);
+diff2_perc_max = max(max(diff2_perc));
 diff2_sum = sum(sum(abs(diff2)));
 
 diff2_max = max(max(abs(diff2)))
-
 dev2 = diff2_sum/u2_sum
 
 %It seems like normalized gives better result. From diff2_max it does not
@@ -41,39 +46,6 @@ dev2 = diff2_sum/u2_sum
 H = H_normalized
 %H = H_not_normalized
 %H = H./H(3,3);
-%% Get the camera's focal length
-% 
-% H2 = H.^2;
-% A = [1 - H2(3,1); 1 - H2(3,2); -H(3,1)*H(3,2)];
-% A = [1 - H(3,1)*H(3,1); 1 - H(3,2)*H(3,2); - H(3,1)*H(3,2)];
-% %A = [1; 1; 0] - H'(1:2,)
-% 
-% b = [H2(1,1)+H2(2,1); H2(1,2) + H2(2,2); H(1,1)*H(1,2)+H(2,1)*H(2,2)];
-% b = [H(1:2,1)'*H(1:2,1); H(1:2,2)'*H(1:2,2); H(1:2,1)'*H(1:2,2)]
-% 
-% 
-% 
-% %Solve the normal equation f = (A^T*A)\A^T*b
-% f2 = A\b; %Has to be positive?
-% f = sqrt(f2);
-% 
-% %% Test the solution
-% 
-% test = A*f2 - b
-% %When looking at test
-% 
-% R1 = [H(1,1)/f; H(2,1)/f; H(3,1)];
-% R2 = [H(1,2)/f; H(2,2)/f; H(3,2)];
-% 
-% R1_squared = R1'*R1
-% R2_squared = R2'*R2
-% R12 = R1'*R2
-% 
-% F = eye(3); 
-% F(3,3) = f;
-% 
-% D = F*H;
-% D'*D - eye(3)*f %Should have zeros in top (2,2) square
 
 %% Get the cameras focal length
 
@@ -100,3 +72,5 @@ Kinv = diag([1/f 1/f 1])
 
 rt = Kinv*H
 sum(rt.^2)
+
+H = H/H(3,3)
