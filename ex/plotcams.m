@@ -1,4 +1,5 @@
 function plotcams(P)
+%COPIED FROM AN ASSIGNMENT WHERE IT WAS GIVEN TO US.
 
 c = zeros(4,length(P));
 v = zeros(3,length(P));

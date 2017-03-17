@@ -1,10 +1,11 @@
 clear;
 %load('ex5_calculations')
-
+%%
 im{1} = imread('mods/ex5a.jpg');
 im{2} = imread('mods/ex5b.jpg');
 im{3} = imread('mods/ex5c.jpg');
 im{4} = imread('mods/ex5d.jpg');
+%%
 
 for i = 1:4
     figure(i)
@@ -68,6 +69,10 @@ for ind_prime = 1:4
         nbr_inliers = sum(bestInliers)
         %bestH = getH(xa(:,bestIndices), xb(:,bestIndices));
         %should be done using normalization when it works
+        
+        %Didn't have time to test this, but I guess the results could be
+        %improved if instead of bestIndices I used bestInliers in the
+        %following 3 lines.
         Na_bestInd = getN(xa(:,bestIndices));
         Nb_bestInd = getN(xb(:,bestIndices));
         bestH = getH(xa(:,bestIndices), xb(:,bestIndices), Na_bestInd, Nb_bestInd);
@@ -175,3 +180,26 @@ save('ex5_end_image', 'new2134')
 %order to do so, all that is needed is one good homography from one other
 %picture to this perspective (the only good homography that was found for
 %this was h32), and then create h34 = h32*h24, for example.
+
+%% Corners
+top_left = [101; 1884];
+top_right = [1156; 344];
+bot_right = [3950; 1463];
+bot_left = [2937; 3661];
+x_pic = [top_left, top_right, bot_right, bot_left; 1 1 1 1];
+
+h = 2794;
+w = 2100;
+
+top_left = [0; -h];
+top_right = [w; -h];
+bot_right = [w; 0];
+bot_left = [0; 0];
+x_paper = [top_left, top_right, bot_right, bot_left; 1 1 1 1];
+
+H_to_paper = getH(x_pic, x_paper);
+
+tform = maketform('projective',H_to_paper');
+[paper] = imtransform(new2134,tform);
+figure(70)
+imagesc(paper)
